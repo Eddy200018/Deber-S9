@@ -8,16 +8,20 @@ class Lista:
         if self.longitud < self.size:
             self.lista += [dato]
             self.longitud += 1
+            print("El valor {} ha sido ingresado correctamente".format(dato))
         else:
-            print("lista esta llena")
+            print("ERROR DE INGRESO: La lista esta llena")
     
     def obtener(self,pos):
         if pos < 0 or pos >= self.longitud:
             return -1
         else:
             valor = self.lista[pos]
-            self.lista = self.lista[0:pos] + self.lista[pos+1:]
+            listaAux= self.lista[0:pos]
+            for indice in range (pos,self.longitud-1):
+                listaAux+= [self.lista[indice+1]]
             self.longitud -= 1
+            self.lista= listaAux
             return valor 
             
     def buscar(self,dato):
@@ -32,17 +36,18 @@ class Lista:
     def insertar(self,dato):
         if self.buscar(dato) == -1:
             self.append(dato)
-        else: print("No se insertó el dato porque ya existe en la lista")
+        else: return -1
                      
     def eliminar(self,dato):
         pos = self.buscar(dato)
         if pos != -1:
-            self.lista = self.lista[0:pos] + self.lista[pos+1:] 
-            self.longitud -= 1
+            self.obtener(pos)
+            #self.lista = self.lista[0:pos] + self.lista[pos+1:]
+            #self.longitud -= 1
         else: return -1                 
             
-    def mostrar(self,orden="asc"):
-        if orden.lower() == "asc":
+    def mostrar(self,orden):
+        if orden == 1:
             for pos in range(0,self.longitud):
                 print("[{}]".format(self.lista[pos]))
         else:
@@ -51,4 +56,3 @@ class Lista:
     
               
                      
-                            
